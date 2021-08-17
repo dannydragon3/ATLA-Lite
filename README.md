@@ -1,2 +1,2 @@
 # ATLA-Lite
-ATLA Script
+Just a simple script for ATLA
