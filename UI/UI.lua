@@ -1,4 +1,5 @@
 -- Old UI that I made using drawing api
+-- Yessir I wrote this back in 2019 :sunglasses:
 
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService('Players')
