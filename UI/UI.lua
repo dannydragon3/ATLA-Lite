@@ -135,10 +135,12 @@ function UI:FindInCertainPosition(position)
 	end
 end
 
+local shouldStopValueAcceleration
+
 function UI:ArrowIndicator(enum)
 	local Arrow = self.ObjectHandler[1]
 
-    	local ArrowDrawing = Arrow._drawing
+    local ArrowDrawing = Arrow._drawing
 	local ArrowPosition = ArrowDrawing.Position
 
 	local currentSelected = self:FindInCertainPosition(ArrowPosition)
@@ -174,8 +176,25 @@ function UI:ArrowIndicator(enum)
 		end
 	elseif enum == Enum.KeyCode.Left then
 		if currentSelected.value ~= nil then
+			shouldStopValueAcceleration = false
+
 		    currentSelected._drawing.Text = currentSelected._drawing.Text:gsub(currentSelected.value, "" .. currentSelected.value - 1)
         	currentSelected.value -= 1
+
+			acceleration = coroutine.create(function()
+				task.wait(0.1)
+
+				while (not shouldStopValueAcceleration) do
+					currentSelected._drawing.Text = currentSelected._drawing.Text:gsub(currentSelected.value, "" .. currentSelected.value - 1)
+					currentSelected.value -= 1
+
+					task.wait()
+				end
+
+				coroutine.yield()
+			end)
+
+			coroutine.resume(acceleration)
 		elseif currentSelected.list ~= nil then
 			local newIndex = currentSelected.selected - 1
 
@@ -188,8 +207,26 @@ function UI:ArrowIndicator(enum)
 		end
 	elseif enum == Enum.KeyCode.Right then
 		if currentSelected.value ~= nil then
+			shouldStopValueAcceleration = false
+
 		    currentSelected._drawing.Text = currentSelected._drawing.Text:gsub(currentSelected.value, "" .. currentSelected.value + 1)
             currentSelected.value += 1
+
+			acceleration = coroutine.create(function()
+				task.wait(0.1)
+
+				while (not shouldStopValueAcceleration) do
+					currentSelected._drawing.Text = currentSelected._drawing.Text:gsub(currentSelected.value, "" .. currentSelected.value + 1)
+					currentSelected.value += 1
+
+					task.wait()
+				end
+
+				acceleration = nil
+				coroutine.yield()
+			end)
+
+			coroutine.resume(acceleration)
 		elseif currentSelected.list ~= nil then
 			local newIndex = currentSelected.selected + 1
 			
@@ -207,6 +244,10 @@ UserInputService.InputBegan:Connect(function(input)
     UI:ArrowIndicator(input.KeyCode)
 end)
 
+UserInputService.InputEnded:Connect(function(input)
+    shouldStopValueAcceleration = true
+end)
+
 camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
     for _, object in ipairs(UI.ObjectHandler) do
         local drawing = object._drawing
@@ -219,4 +260,4 @@ camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
     end
 end)
 
-return UI
+getgenv().UI = UI
