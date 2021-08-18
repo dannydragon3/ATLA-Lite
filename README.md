@@ -7,4 +7,7 @@ Run this script `loadstring(game:HttpGet("https://raw.githubusercontent.com/Snow
 - Synapse X 
 - Most of them should work but untested
 # Status
-- AutoFarm (**Working with minor issues that can get you banned so use at your own risk!**)
+- Testing
+# FAQ
+- Will I get banned? 
+> Probably not but still use at your own risk!
