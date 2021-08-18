@@ -138,7 +138,7 @@ end
 function UI:ArrowIndicator(enum)
 	local Arrow = self.ObjectHandler[1]
 
-    local ArrowDrawing = Arrow._drawing
+    	local ArrowDrawing = Arrow._drawing
 	local ArrowPosition = ArrowDrawing.Position
 
 	local currentSelected = self:FindInCertainPosition(ArrowPosition)
@@ -210,19 +210,13 @@ end)
 camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
     for _, object in ipairs(UI.ObjectHandler) do
         local drawing = object._drawing
-		local position = object._position
-		local offset = object._offset
+	local position = object._position
+	local offset = object._offset
 		
-		local newPosition = position.Y - (position.Y - camera.ViewportSize.Y / 2) + offset
+	local newPosition = position.Y - (position.Y - camera.ViewportSize.Y / 2) + offset
 
-		drawing.Position = Vector2.new(position.X, newPosition)
+	drawing.Position = Vector2.new(position.X, newPosition)
     end
 end)
 
 getgenv().UI = UI
-
-
-
-
-
-
