@@ -11,3 +11,5 @@ Run this script `loadstring(game:HttpGet("https://raw.githubusercontent.com/Snow
 # FAQ
 - Will I get banned? 
 > Probably not but still use at your own risk!
+- How do I use the ui?
+> Use your arrows and enter key
