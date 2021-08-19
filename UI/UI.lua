@@ -368,7 +368,7 @@ function UI:ArrowIndicator(enum)
 end
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
-	if gameProcessed then
+	if not gameProcessed then
     	UI:ArrowIndicator(input.KeyCode)
 	end
 end)
