@@ -12,4 +12,10 @@ Run this script `loadstring(game:HttpGet("https://raw.githubusercontent.com/Snow
 - Will I get banned? 
 > Probably not but still use at your own risk!
 - How do I use the ui?
-> Use your arrows and enter key
+> **Use your keyboard arrows!**
+# UI Controls
+> Right-Arrow: will either increase a value, go one further in a list, open a sub category
+> Left-Arrow: Will either decrease a value, go back one in the list
+> Arrow-UP: Will move up
+> Arrow-Down: Will move down
+> Enter: Will either toggle a ToggleButton, press a Button, 
