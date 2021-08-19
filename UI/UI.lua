@@ -367,8 +367,10 @@ function UI:ArrowIndicator(enum)
 	end
 end
 
-UserInputService.InputBegan:Connect(function(input)
-    UI:ArrowIndicator(input.KeyCode)
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then
+    	UI:ArrowIndicator(input.KeyCode)
+	end
 end)
 
 UserInputService.InputEnded:Connect(function(input)
@@ -390,9 +392,3 @@ camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
 end)
 
 return UI
-
-
-
-
-
-
