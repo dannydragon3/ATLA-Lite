@@ -369,13 +369,13 @@ end
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	if not gameProcessed then
-    	UI:ArrowIndicator(input.KeyCode)
+		UI:ArrowIndicator(input.KeyCode)
 	end
 end)
 
 UserInputService.InputEnded:Connect(function(input)
 	if not shouldStopValueAcceleration and input.KeyCode == Enum.KeyCode.Left or input.KeyCode == Enum.KeyCode.Right then
-    	shouldStopValueAcceleration = true
+		shouldStopValueAcceleration = true
 	end
 end)
 
