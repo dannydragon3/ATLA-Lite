@@ -371,26 +371,24 @@ function UI:ArrowIndicator(enum)
 end
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
-	if not gameProcessed then
-    		UI:ArrowIndicator(input.KeyCode)
-	end
+    UI:ArrowIndicator(input.KeyCode)
 end)
 
 UserInputService.InputEnded:Connect(function(input)
 	if not shouldStopValueAcceleration and input.KeyCode == Enum.KeyCode.Left or input.KeyCode == Enum.KeyCode.Right then
-    		shouldStopValueAcceleration = true
+    	shouldStopValueAcceleration = true
 	end
 end)
 
 camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
     for _, object in ipairs(UI.ObjectHandler) do
         local drawing = object._drawing
-	local position = object._position
-	local offset = object._offset
+		local position = object._position
+		local offset = object._offset
 		
-	local newPosition = position.Y - (position.Y - camera.ViewportSize.Y / 2) + offset
+		local newPosition = position.Y - (position.Y - camera.ViewportSize.Y / 2) + offset
 
-	drawing.Position = Vector2.new(position.X, newPosition)
+		drawing.Position = Vector2.new(position.X, newPosition)
     end
 end)
 
