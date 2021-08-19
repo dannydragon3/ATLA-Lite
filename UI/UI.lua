@@ -236,7 +236,10 @@ function UI:FindInCertainPosition(arrow, position)
 
 		local drawing = object._drawing
 
-		if (drawing.Position.Y == position.Y and (position.X + arrow.TextBounds.X + 3) == drawing.Position.X and drawing.Visible == true) or drawing.Position.Y == position.Y and position.X == 0 then
+		if (drawing.Position.Y == position.Y and ((position.X + arrow.TextBounds.X + 3) == drawing.Position.X) and arrow.Visible == true and drawing.Visible == true) then
+			print("Passed")
+			return object
+		elseif drawing.Position.Y == position.Y and position.X == 0 and drawing.Position.X == self._offset then
 			return object
 		end
 	end
@@ -369,13 +372,13 @@ end
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	if not gameProcessed then
-		UI:ArrowIndicator(input.KeyCode)
+    		UI:ArrowIndicator(input.KeyCode)
 	end
 end)
 
 UserInputService.InputEnded:Connect(function(input)
 	if not shouldStopValueAcceleration and input.KeyCode == Enum.KeyCode.Left or input.KeyCode == Enum.KeyCode.Right then
-		shouldStopValueAcceleration = true
+    		shouldStopValueAcceleration = true
 	end
 end)
 
@@ -391,4 +394,4 @@ camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
     end
 end)
 
-return UI
+getgenv().UI = UI
