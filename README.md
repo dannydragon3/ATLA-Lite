@@ -19,3 +19,4 @@ Run this script `loadstring(game:HttpGet("https://raw.githubusercontent.com/Snow
 - Arrow-UP: Will move up
 - Arrow-Down: Will move down
 - Enter: Will either toggle a ToggleButton, press a Button, 
+- Backspace: Will close the sub category
