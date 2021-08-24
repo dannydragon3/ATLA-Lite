@@ -236,10 +236,10 @@ function UI:FindInCertainPosition(arrow, position)
 
 		local drawing = object._drawing
 
-		if (drawing.Position.Y == position.Y and ((position.X + arrow.TextBounds.X + 3) == drawing.Position.X) and arrow.Visible == true and drawing.Visible == true) then
+		if position and (drawing.Position.Y == position.Y and ((position.X + arrow.TextBounds.X + 3) == drawing.Position.X) and arrow.Visible == true and drawing.Visible == true) then
 			print("Passed")
 			return object
-		elseif drawing.Position.Y == position.Y and position.X == 0 and drawing.Position.X == self._offset then
+		elseif position and drawing.Position.Y == position.Y and position.X == 0 and drawing.Position.X == self._offset then
 			return object
 		end
 	end
@@ -383,12 +383,12 @@ end)
 camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
     for _, object in ipairs(UI.ObjectHandler) do
         local drawing = object._drawing
-		local position = object._position
-		local offset = object._offset
+	local position = object._position
+	local offset = object._offset
 		
-		local newPosition = position.Y - (position.Y - camera.ViewportSize.Y / 2) + offset
+	local newPosition = position.Y - (position.Y - camera.ViewportSize.Y / 2) + offset
 
-		drawing.Position = Vector2.new(position.X, newPosition)
+	drawing.Position = Vector2.new(position.X, newPosition)
     end
 end)
 
