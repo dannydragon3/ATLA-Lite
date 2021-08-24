@@ -393,4 +393,4 @@ camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
     end
 end)
 
-getgenv().UI = UI
+return UI
