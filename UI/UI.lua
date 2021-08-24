@@ -252,8 +252,6 @@ function UI:ArrowIndicator(enum)
     local ArrowDrawing = Arrow._drawing
 	local ArrowPosition = ArrowDrawing.Position
 
-	print(ArrowDrawing.TextBounds)
-
 	local currentSelected = self:FindInCertainPosition(ArrowDrawing, ArrowPosition)
 
 	if enum == Enum.KeyCode.Up and self:FindInCertainPosition(ArrowDrawing, ArrowPosition - Vector2.new(0, 15)) then
