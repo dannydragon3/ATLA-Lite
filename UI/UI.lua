@@ -230,7 +230,7 @@ end
 
 function UI:FindInCertainPosition(arrow, position)
 	for i, object in pairs(self.ObjectHandler) do
-		if object._drawing == arrow then
+		if object._drawing == arrow or not position then
 			continue
 		end
 
@@ -252,7 +252,7 @@ function UI:ArrowIndicator(enum)
     local ArrowDrawing = Arrow._drawing
 	local ArrowPosition = ArrowDrawing.Position
 
-	print(ArrowDrawing, ArrowPosition)
+	print(ArrowDrawing.TextBounds)
 
 	local currentSelected = self:FindInCertainPosition(ArrowDrawing, ArrowPosition)
 
