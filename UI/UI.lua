@@ -13,7 +13,6 @@ local camera = workspace.CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 
 local UI = {}
-local drawings = {}
 
 UI.ObjectHandler = {}
 UI.SubCategories = {}
@@ -49,7 +48,7 @@ function UI:Draw(type, properties, categoryParent)
         object[property] = value
     end
 
-	local newObject = setmetatable({
+	local newObject = {
         _position = object.Position,
 		_offset = currentOffSet,
         _drawing = object,
@@ -57,7 +56,7 @@ function UI:Draw(type, properties, categoryParent)
 			hasSubCategory = false,
 			_drawings = {}
 		}
-    }, drawings)
+    }
 
 	function newObject.subCategory:CreateCategory()
 		object.Text = object.Text .. " (+)"
@@ -67,6 +66,7 @@ function UI:Draw(type, properties, categoryParent)
 			Size = 25,
 			Color = Color3.fromRGB(255, 255,255),
 			Position = Vector2.new(UI._offset + object.TextBounds.X + 3, object.Position.Y),
+			Visible = false,
 		}, self);
 
 		self._offset = currentOffSet
@@ -230,16 +230,15 @@ end
 
 function UI:FindInCertainPosition(arrow, position)
 	for i, object in pairs(self.ObjectHandler) do
-		if i == 1 then
+		if object._drawing == arrow then
 			continue
 		end
 
 		local drawing = object._drawing
 
-		if position and (drawing.Position.Y == position.Y and ((position.X + arrow.TextBounds.X + 3) == drawing.Position.X) and arrow.Visible == true and drawing.Visible == true) then
-			print("Passed")
+		if (drawing.Position.Y == position.Y and (math.round(position.X + arrow.TextBounds.X + 3) == math.round(drawing.Position.X)) and arrow.Visible == true and drawing.Visible == true) then
 			return object
-		elseif position and drawing.Position.Y == position.Y and position.X == 0 and drawing.Position.X == self._offset then
+		elseif drawing.Position.Y == position.Y and position.X == 0 and drawing.Position.X == self._offset then
 			return object
 		end
 	end
@@ -250,13 +249,13 @@ local shouldStopValueAcceleration
 function UI:ArrowIndicator(enum)
 	local Arrow = self.currentArrow
 
-	print(Arrow)
-
     local ArrowDrawing = Arrow._drawing
 	local ArrowPosition = ArrowDrawing.Position
 
+	print(ArrowDrawing, ArrowPosition)
+
 	local currentSelected = self:FindInCertainPosition(ArrowDrawing, ArrowPosition)
-	
+
 	if enum == Enum.KeyCode.Up and self:FindInCertainPosition(ArrowDrawing, ArrowPosition - Vector2.new(0, 15)) then
 		ArrowDrawing.Position = ArrowPosition - Vector2.new(0, 15)
 		Arrow._offset -= 15
@@ -394,4 +393,4 @@ camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
     end
 end)
 
-return UI
+getgenv().UI = UI
